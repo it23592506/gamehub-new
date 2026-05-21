@@ -1,0 +1,156 @@
+.install-prompt {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+  z-index: 1000;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.install-prompt-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.install-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+}
+
+.phone-icon {
+  width: 40px;
+  height: 40px;
+  color: #00d4ff;
+}
+
+.download-icon {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  color: #ff00ff;
+  background: #1a1a2e;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.install-text {
+  text-align: center;
+}
+
+.install-text h3 {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(45deg, #00d4ff, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.install-text p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.install-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.install-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  text-decoration: none;
+}
+
+.install-btn.primary {
+  background: linear-gradient(135deg, #00d4ff, #ff00ff);
+  color: white;
+}
+
+.install-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+}
+
+.install-btn.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.install-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .install-prompt {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+  }
+  
+  .install-actions {
+    flex-direction: column;
+  }
+  
+  .install-btn {
+    justify-content: center;
+  }
+}
+
+/* Hide on very small screens */
+@media (max-width: 320px) {
+  .install-prompt {
+    padding: 1rem;
+  }
+  
+  .install-text h3 {
+    font-size: 1.1rem;
+  }
+  
+  .install-text p {
+    font-size: 0.85rem;
+  }
+}

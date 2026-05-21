@@ -1,0 +1,1025 @@
+.mmorpg-game {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #2c1810, #4a3728);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: white;
+  font-family: 'Arial', sans-serif;
+}
+
+.game-canvas {
+  border: 3px solid #d4af37;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  background: #2d4a32;
+  cursor: crosshair;
+  position: relative;
+  z-index: 1;
+}
+
+/* Game HUD */
+.game-hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Character Panel */
+.character-panel {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+  min-width: 250px;
+}
+
+.character-avatar {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2c1810;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.character-info h3 {
+  margin: 0 0 8px 0;
+  color: #d4af37;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.level-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 8px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.level-info svg {
+  color: #d4af37;
+}
+
+.experience-bar {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  height: 12px;
+  position: relative;
+  overflow: hidden;
+  width: 150px;
+}
+
+.exp-fill {
+  background: linear-gradient(90deg, #4a90e2, #357abd);
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.experience-bar span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Stats Panel */
+.stats-panel {
+  position: absolute;
+  top: 20px;
+  left: 300px;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 12px;
+  padding: 15px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+  min-width: 300px;
+}
+
+.health-mana {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.stat-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.stat-bar.health svg {
+  color: #e74c3c;
+}
+
+.stat-bar.mana svg {
+  color: #3498db;
+}
+
+.bar {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  height: 8px;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.stat-bar.health .fill {
+  background: linear-gradient(90deg, #e74c3c, #c0392b);
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+.stat-bar.mana .fill {
+  background: linear-gradient(90deg, #3498db, #2980b9);
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+.attributes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.attribute {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.attribute svg {
+  color: #d4af37;
+}
+
+/* Action Buttons */
+.action-buttons {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+.action-btn {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  border: 2px solid rgba(212, 175, 55, 0.5);
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.action-btn:hover:not(:disabled) {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: #d4af37;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.action-btn.attack {
+  border-color: rgba(231, 76, 60, 0.5);
+}
+
+.action-btn.attack:hover:not(:disabled) {
+  background: rgba(231, 76, 60, 0.2);
+  border-color: #e74c3c;
+}
+
+/* Minimap */
+.minimap {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 150px;
+  height: 120px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  pointer-events: auto;
+}
+
+.minimap-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2d4a32, #1a3a2a);
+}
+
+.player-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #4a90e2;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px #4a90e2;
+}
+
+.enemy-dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #e74c3c;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.npc-dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #f39c12;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Status Info */
+.status-info {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  backdrop-filter: blur(10px);
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.info-item svg {
+  color: #d4af37;
+}
+
+/* Inventory Panel */
+.inventory-panel {
+  position: absolute;
+  top: 100px;
+  right: -300px;
+  width: 280px;
+  height: 400px;
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-tabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 12px 12px 0 0;
+}
+
+.tab {
+  flex: 1;
+  padding: 12px 8px;
+  background: transparent;
+  color: #cccccc;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  transition: all 0.3s ease;
+  border-radius: 12px 12px 0 0;
+}
+
+.tab:hover {
+  background: rgba(212, 175, 55, 0.1);
+  color: #d4af37;
+}
+
+.tab.active {
+  background: rgba(212, 175, 55, 0.2);
+  color: #d4af37;
+  border-bottom: 2px solid #d4af37;
+}
+
+.panel-content {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.inventory-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.inventory-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.inventory-item.common {
+  border-color: #999999;
+}
+
+.inventory-item.uncommon {
+  border-color: #1eff00;
+}
+
+.inventory-item.rare {
+  border-color: #0070dd;
+}
+
+.inventory-item.epic {
+  border-color: #a335ee;
+}
+
+.inventory-item.legendary {
+  border-color: #ff8000;
+}
+
+.inventory-item.equipped {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: #d4af37;
+}
+
+.item-icon {
+  margin-bottom: 4px;
+  color: #d4af37;
+}
+
+.item-name {
+  font-size: 10px;
+  font-weight: bold;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.item-quantity {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  font-size: 10px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.equipped-indicator {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: #d4af37;
+  color: #2c1810;
+  font-size: 8px;
+  padding: 1px 3px;
+  border-radius: 2px;
+  font-weight: bold;
+}
+
+.character-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stat-group h4 {
+  color: #d4af37;
+  margin: 0 0 10px 0;
+  font-size: 14px;
+}
+
+.stat-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 13px;
+}
+
+.skills-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.skill-category h4 {
+  color: #d4af37;
+  margin: 0 0 10px 0;
+  font-size: 14px;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.skill-item svg {
+  color: #d4af37;
+}
+
+.skill-level {
+  margin-left: auto;
+  background: rgba(212, 175, 55, 0.2);
+  color: #d4af37;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+/* Quest Log */
+.quest-log {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  max-height: 70vh;
+  background: rgba(0, 0, 0, 0.95);
+  border: 2px solid rgba(212, 175, 55, 0.5);
+  border-radius: 15px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.quest-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.quest-header h3 {
+  margin: 0;
+  color: #d4af37;
+  font-size: 20px;
+}
+
+.quest-header button {
+  background: transparent;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.quest-header button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.quest-list {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.quest-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+.quest-item.active {
+  border-color: rgba(212, 175, 55, 0.5);
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.quest-item.completed {
+  border-color: rgba(46, 204, 113, 0.5);
+  background: rgba(46, 204, 113, 0.1);
+  opacity: 0.8;
+}
+
+.quest-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #d4af37;
+  margin-bottom: 8px;
+}
+
+.quest-description {
+  color: #cccccc;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.quest-progress {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.progress-bar {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  height: 8px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, #4a90e2, #357abd);
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+.quest-reward {
+  color: #f39c12;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* Chat Panel */
+.chat-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 400px;
+  height: 250px;
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: 15px 15px 0 0;
+  backdrop-filter: blur(15px);
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.chat-header h3 {
+  margin: 0;
+  color: #d4af37;
+  font-size: 16px;
+}
+
+.chat-header button {
+  background: transparent;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.chat-header button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 10px 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-message {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.player-name {
+  color: #4a90e2;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.message-text {
+  color: #ffffff;
+}
+
+.chat-input {
+  display: flex;
+  padding: 10px 15px;
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+  gap: 10px;
+}
+
+.chat-input input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.chat-input input::placeholder {
+  color: #888888;
+}
+
+.chat-input button {
+  background: linear-gradient(135deg, #4a90e2, #357abd);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.chat-input button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+}
+
+/* Menu Screen */
+.game-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #2c1810, #4a3728);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.menu-content {
+  text-align: center;
+  max-width: 500px;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+.menu-content h1 {
+  font-size: 36px;
+  margin: 0 0 15px 0;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.menu-content p {
+  font-size: 16px;
+  color: #cccccc;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.game-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.feature svg {
+  color: #d4af37;
+}
+
+.start-btn {
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: #2c1810;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+}
+
+.start-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+/* Interaction Menu */
+.interaction-menu {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid rgba(212, 175, 55, 0.5);
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 200;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+.interaction-menu button {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.interaction-menu button:hover {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: #d4af37;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .game-canvas {
+    width: 90vw;
+    height: auto;
+    max-width: 800px;
+    max-height: 600px;
+  }
+  
+  .character-panel,
+  .stats-panel {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-bottom: 10px;
+  }
+  
+  .inventory-panel {
+    right: -280px;
+    width: 260px;
+  }
+  
+  .quest-log {
+    width: 90vw;
+    max-width: 500px;
+  }
+  
+  .chat-panel {
+    width: 90vw;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .character-panel {
+    min-width: 200px;
+    padding: 10px;
+  }
+  
+  .character-avatar {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .stats-panel {
+    min-width: 250px;
+    left: 220px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    bottom: 10px;
+  }
+  
+  .action-btn {
+    padding: 10px 16px;
+  }
+  
+  .minimap {
+    width: 120px;
+    height: 90px;
+  }
+  
+  .game-features {
+    grid-template-columns: 1fr;
+  }
+  
+  .inventory-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .mmorpg-game {
+    padding: 10px;
+  }
+  
+  .game-canvas {
+    width: 95vw;
+    border-width: 2px;
+  }
+  
+  .character-panel,
+  .stats-panel {
+    position: static;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .menu-content {
+    padding: 25px;
+    margin: 20px;
+  }
+  
+  .menu-content h1 {
+    font-size: 28px;
+  }
+  
+  .quest-log,
+  .chat-panel {
+    width: 95vw;
+    margin: 10px;
+  }
+  
+  .inventory-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 300px;
+    height: 70vh;
+  }
+}
+
+/* Scrollbar Styling */
+.panel-content::-webkit-scrollbar,
+.quest-list::-webkit-scrollbar,
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.panel-content::-webkit-scrollbar-track,
+.quest-list::-webkit-scrollbar-track,
+.chat-messages::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.panel-content::-webkit-scrollbar-thumb,
+.quest-list::-webkit-scrollbar-thumb,
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.6);
+  border-radius: 3px;
+}
+
+.panel-content::-webkit-scrollbar-thumb:hover,
+.quest-list::-webkit-scrollbar-thumb:hover,
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.8);
+}
+
+/* Animation States */
+.inventory-item,
+.action-btn,
+.tab,
+.start-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.inventory-item::before,
+.action-btn::before,
+.tab::before,
+.start-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.inventory-item:active::before,
+.action-btn:active::before,
+.tab:active::before,
+.start-btn:active::before {
+  width: 200px;
+  height: 200px;
+}

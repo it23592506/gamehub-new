@@ -1,0 +1,32 @@
+/* Placeholder styling for missing images */
+img[src*="placeholder-game.jpg"],
+img[src*="game1.jpg"],
+img[src*="game2.jpg"],
+img[src*="game3.jpg"],
+img[src*="game4.jpg"],
+img[src*="game5.jpg"],
+img[src*="game6.jpg"] {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+img[src*="placeholder-game.jpg"]::after,
+img[src*="game1.jpg"]::after,
+img[src*="game2.jpg"]::after,
+img[src*="game3.jpg"]::after,
+img[src*="game4.jpg"]::after,
+img[src*="game5.jpg"]::after,
+img[src*="game6.jpg"]::after {
+  content: '🎮 Game Image';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+}

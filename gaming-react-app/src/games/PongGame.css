@@ -1,0 +1,422 @@
+.pong-game {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border-radius: 15px;
+  color: white;
+  font-family: 'Arial', sans-serif;
+}
+
+.game-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.game-header h2 {
+  font-size: 2.5rem;
+  margin: 0 0 20px 0;
+  background: linear-gradient(45deg, #00d4ff, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+.game-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.scores {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex: 1;
+  justify-content: center;
+}
+
+.score-section {
+  text-align: center;
+  min-width: 80px;
+}
+
+.score-section.player {
+  color: #00d4ff;
+}
+
+.score-section.ai {
+  color: #ff00ff;
+}
+
+.score-section h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.score {
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px currentColor;
+  animation: scoreGlow 3s ease-in-out infinite;
+}
+
+.vs {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.difficulty-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 15px;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.difficulty-selector label {
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+}
+
+.difficulty-selector select {
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.difficulty-selector select:focus {
+  border-color: #00d4ff;
+  box-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
+}
+
+.difficulty-selector select option {
+  background: #1a1a2e;
+  color: white;
+}
+
+.game-over {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.game-over h3 {
+  font-size: 2rem;
+  margin: 0 0 10px 0;
+  background: linear-gradient(45deg, #00d4ff, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.game-over p {
+  margin: 5px 0;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.game-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  position: relative;
+}
+
+.game-canvas {
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  box-shadow: 
+    0 0 20px rgba(0, 212, 255, 0.3),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+  background: radial-gradient(circle at center, rgba(0, 20, 40, 0.8), rgba(0, 0, 0, 0.9));
+  max-width: 100%;
+  height: auto;
+}
+
+.mobile-controls {
+  display: none;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+  flex-direction: column;
+  align-items: center;
+}
+
+.control-row {
+  display: flex;
+  gap: 20px;
+}
+
+.control-btn {
+  background: linear-gradient(145deg, rgba(0, 212, 255, 0.2), rgba(0, 212, 255, 0.1));
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  color: #00d4ff;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  backdrop-filter: blur(10px);
+  min-width: 100px;
+}
+
+.control-btn:hover {
+  background: linear-gradient(145deg, rgba(0, 212, 255, 0.3), rgba(0, 212, 255, 0.2));
+  border-color: rgba(0, 212, 255, 0.6);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.control-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+}
+
+.game-controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  backdrop-filter: blur(10px);
+}
+
+.btn-primary {
+  background: linear-gradient(145deg, #00d4ff, #0099cc);
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+  animation: buttonPulse 2s ease-in-out infinite;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(145deg, #00b8e6, #0088bb);
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.game-instructions {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  margin-top: 20px;
+}
+
+.game-instructions h4 {
+  margin: 0 0 15px 0;
+  font-size: 1.3rem;
+  color: #00d4ff;
+  text-align: center;
+}
+
+.game-instructions p {
+  margin: 8px 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .pong-game {
+    padding: 15px;
+  }
+
+  .game-header h2 {
+    font-size: 2rem;
+  }
+
+  .game-info {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .scores {
+    gap: 20px;
+  }
+
+  .score {
+    font-size: 2.2rem;
+  }
+
+  .vs {
+    font-size: 1.2rem;
+  }
+
+  .difficulty-selector {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .game-canvas {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .mobile-controls {
+    display: flex;
+  }
+
+  .control-btn {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    min-width: 80px;
+  }
+
+  .game-over h3 {
+    font-size: 1.6rem;
+  }
+
+  .game-instructions {
+    padding: 15px;
+  }
+
+  .game-instructions p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pong-game {
+    padding: 10px;
+  }
+
+  .game-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .scores {
+    gap: 15px;
+  }
+
+  .score {
+    font-size: 2rem;
+  }
+
+  .score-section h3 {
+    font-size: 1rem;
+  }
+
+  .vs {
+    font-size: 1rem;
+  }
+
+  .control-btn {
+    padding: 10px 15px;
+    font-size: 0.8rem;
+    min-width: 70px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .game-instructions h4 {
+    font-size: 1.1rem;
+  }
+
+  .game-instructions p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Animation effects */
+@keyframes scoreGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px currentColor;
+  }
+  50% {
+    text-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 25px rgba(0, 212, 255, 0.5);
+  }
+}
+
+/* Focus styles for accessibility */
+.btn:focus,
+.control-btn:focus,
+.difficulty-selector select:focus {
+  outline: 2px solid #00d4ff;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .pong-game {
+    background: #000;
+    border: 2px solid #fff;
+  }
+  
+  .game-canvas {
+    border-color: #fff;
+  }
+  
+  .btn, .control-btn {
+    border: 2px solid #fff;
+  }
+}
